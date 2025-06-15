@@ -1,0 +1,32 @@
+npm install -g @angular/cli
+ng --version
+ng serve
+
+ng add @angular/material
+Indigo/pink
+Typographh styles? y
+Animations? y
+
+ng serve
+ng g m courses --routing
+
+ng g c courses/courses
+
+TS Hero organize imports (ctrl alt O)
+
+ng g interface courses/model/course
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

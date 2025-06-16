@@ -16,7 +16,9 @@ TS Hero organize imports (ctrl alt O)
 
 ng g interface courses/model/course
 
+ng g m shared/app-material
 
+ng g s courses/services/courses
 
 
 

@@ -20,7 +20,9 @@ ng g m shared/app-material
 
 ng g s courses/services/courses
 
+ng g m shared
 
+ng g c shared/components/error-dialog
 
 
 

@@ -24,6 +24,10 @@ ng g m shared
 
 ng g c shared/components/error-dialog
 
+ng g pipe shared/pipes/category
+
+
+
 
 
 

@@ -8,27 +8,33 @@
 		<version>3.5.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.brum</groupId>
 	<artifactId>crud-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>crud-spring</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
+
 	<licenses>
 		<license/>
 	</licenses>
+
 	<developers>
 		<developer/>
 	</developers>
+
 	<scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
 		<url/>
 	</scm>
+
 	<properties>
 		<java.version>24</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, Observable, of } from 'rxjs';
 
 import { AppMaterialModule } from '../../shared/app-material/app-material.module';
+import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
+import { SharedModule } from '../../shared/shared.module';
 import { CoursesRoutingModule } from '../courses-routing.module';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
-import { Observable, catchError, of } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { SharedModule } from '../../shared/shared.module';
-import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
 
 @Component({
   standalone: true,
@@ -20,13 +21,14 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
-  displayedColumns = ['name', 'category'];
+  displayedColumns = ['name', 'category', 'actions'];
 
   constructor(
-    private coursesService: CoursesService,
-    public dialog: MatDialog
+    private readonly coursesService: CoursesService,
+    public dialog: MatDialog,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {
-    // this.courses = [];
     this.courses$ = this.coursesService.list().pipe(
       catchError((error) => {
         this.onError('Erro ao carregar os cursos.')
@@ -41,5 +43,10 @@ export class CoursesComponent implements OnInit {
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg
     });
+  }
+
+  onAdd() {
+    this.router.navigate(['new'], {relativeTo: this.route});
+    console.log('onAdd');
   }
 }

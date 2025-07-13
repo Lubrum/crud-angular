@@ -26,9 +26,17 @@ ng g c shared/components/error-dialog
 
 ng g pipe shared/pipes/category
 
+ng update
 
+ng update @angular/cli
 
+ng update @angular/material
 
+ng update @angular/core
+
+ng update @angular/cdk
+
+ng g c courses/course-form --skip-imports
 
 
 

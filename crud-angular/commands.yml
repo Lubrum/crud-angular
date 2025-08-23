@@ -38,7 +38,7 @@ ng update @angular/cdk
 
 ng g c courses/course-form --skip-imports
 
-
+ng g c courses/courses-list --skip-import
 
 
 

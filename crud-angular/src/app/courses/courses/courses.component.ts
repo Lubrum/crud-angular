@@ -9,6 +9,7 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
 import { SharedModule } from '../../shared/shared.module';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
+import { CoursesListComponent } from '../courses-list/courses-list.component';
 
 @Component({
   standalone: true,
@@ -16,7 +17,7 @@ import { CoursesService } from '../services/courses.service';
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, AppMaterialModule, SharedModule],
+  imports: [CommonModule, AppMaterialModule, SharedModule, CoursesListComponent],
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;

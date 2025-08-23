@@ -21,7 +21,6 @@ import { CoursesListComponent } from '../courses-list/courses-list.component';
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
-  displayedColumns = ['name', 'category', 'actions'];
 
   constructor(
     private readonly coursesService: CoursesService,

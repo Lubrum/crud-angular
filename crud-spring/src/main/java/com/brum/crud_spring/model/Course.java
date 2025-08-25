@@ -1,6 +1,5 @@
 package com.brum.crud_spring.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 

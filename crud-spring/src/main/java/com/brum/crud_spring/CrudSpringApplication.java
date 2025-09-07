@@ -2,6 +2,7 @@ package com.brum.crud_spring;
 
 import com.brum.crud_spring.enums.Category;
 import com.brum.crud_spring.model.Course;
+import com.brum.crud_spring.model.Lesson;
 import com.brum.crud_spring.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +22,12 @@ public class CrudSpringApplication {
 			courseRepository.deleteAll();
 			Course c = new Course();
 			c.setName("Angular com Spring");
-			c.setCategory(Category.FRONTEND);
+			c.setCategory(Category.FRONT_END);
+			Lesson l = new Lesson();
+			l.setName("Introdução");
+			l.setYoutubeUrl("watch?v=1");
+			l.setCourse(c);
+			c.getLessons().add(l);
 			courseRepository.save(c);
 		};
 	}

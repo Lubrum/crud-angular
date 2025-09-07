@@ -3,7 +3,9 @@ package com.brum.crud_spring.dto.mapper;
 import com.brum.crud_spring.dto.CourseDTO;
 import com.brum.crud_spring.enums.Category;
 import com.brum.crud_spring.model.Course;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CourseMapper {
     public CourseDTO toDto(Course course) {
         if (course == null) {

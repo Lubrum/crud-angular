@@ -74,7 +74,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onEdit(course: Course) {
-    this.router.navigate(['edit', course.id], { relativeTo: this.route });
+    this.router.navigate(['edit', course._id], { relativeTo: this.route });
   }
 
   onRemove(course: Course) {
@@ -84,7 +84,7 @@ export class CoursesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.coursesService.remove(course.id).subscribe(
+        this.coursesService.remove(course._id).subscribe(
           () => {
             this.refresh$.next();
             this.snackBar.open('Curso removido com sucesso!', 'X', {

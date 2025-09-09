@@ -3,6 +3,7 @@ package com.brum.crud_spring.service;
 import com.brum.crud_spring.dto.CourseDTO;
 import com.brum.crud_spring.dto.mapper.CourseMapper;
 import com.brum.crud_spring.exception.RecordNotFoundException;
+import com.brum.crud_spring.model.Course;
 import com.brum.crud_spring.repository.CourseRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -36,11 +37,15 @@ public class CourseService {
         return courseMapper.toDto(courseRepository.save(courseMapper.toEntity(course)));
     }
 
-    public CourseDTO update(@NotNull @Positive final Long id, @Valid @NotNull CourseDTO course) {
+    public CourseDTO update(@NotNull @Positive final Long id, @Valid @NotNull CourseDTO courseDTO) {
         return courseRepository.findById(id)
             .map(c -> {
-                c.setName(course.name());
-                c.setCategory(courseMapper.convertCategoryValue(course.category()));
+                Course course = courseMapper.toEntity(courseDTO);
+                c.setName(courseDTO.name());
+                c.setCategory(courseMapper.convertCategoryValue(courseDTO.category()));
+//                c.setLessons(course.getLessons());
+                c.getLessons().clear();
+                course.getLessons().forEach(c.getLessons()::add);
                 return courseMapper.toDto(courseRepository.save(c));
             }).orElseThrow(() -> new RecordNotFoundException(id));
     }

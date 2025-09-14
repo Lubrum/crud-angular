@@ -1,13 +1,18 @@
 package com.brum.crud_spring.service;
 
 import com.brum.crud_spring.dto.CourseDTO;
+import com.brum.crud_spring.dto.CousePageDTO;
 import com.brum.crud_spring.dto.mapper.CourseMapper;
 import com.brum.crud_spring.exception.RecordNotFoundException;
 import com.brum.crud_spring.model.Course;
 import com.brum.crud_spring.repository.CourseRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -25,9 +30,21 @@ public class CourseService {
         this.courseMapper = courseMapper;
     }
 
-    public List<CourseDTO> list() {
-        return courseRepository.findAll().stream().map(courseMapper::toDto).toList();
+    public CousePageDTO list(@PositiveOrZero int pageNumber, @Positive @Max(10) int size) {
+        final Page<Course> page = courseRepository.findAll(PageRequest.of(pageNumber, size));
+        final List<CourseDTO> courses = page.get().map(courseMapper::toDto).toList();
+        return new CousePageDTO(
+            courses,
+            page.getNumber(),
+            page.getSize(),
+            page.getTotalElements(),
+            page.getTotalPages()
+        );
     }
+
+//    public List<CourseDTO> list() {
+//        return courseRepository.findAll().stream().map(courseMapper::toDto).toList();
+//    }
 
     public CourseDTO findById(@NotNull @Positive final Long id) {
         return courseRepository.findById(id).map(courseMapper::toDto).orElseThrow(() -> new RecordNotFoundException(id));

@@ -40,10 +40,6 @@ public class ApplicationControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         if (ex != null && ex.getRequiredType() != null) {
-//            String type = ex.getRequiredType().getSimpleName();
-//            String[] typeParts = type.split("\\.");
-//            String typeName = typeParts[typeParts.length - 1];
-//            return "The parameter '" + ex.getName() + "' must be of type " + typeName;
             return "The parameter '" + ex.getName() + "' must be of type " + ex.getRequiredType().getSimpleName();
         }
         return "Argument type not valid";

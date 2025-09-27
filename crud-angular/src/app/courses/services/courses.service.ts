@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { delay, first, tap } from 'rxjs/operators';
 
 import { Course } from '../model/course';
+import { CoursePage } from '../model/course-page';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,8 @@ export class CoursesService {
 
   constructor(private readonly httpClient : HttpClient) { } // dependency injection
 
-  list() {
-    return this.httpClient.get<Course[]>(this.API)
-    .pipe(
-      first(),
-      delay(500)
-    );
+  list(page = 0, pageSize = 10) {
+    return this.httpClient.get<CoursePage>(this.API, { params: {page, pageSize }});
   }
 
   loadById(id: string) {
@@ -29,7 +26,6 @@ export class CoursesService {
     if (record._id) {
       return this.update(record);
     }
-    console.log(record)
     return this.create(record);
   }
 

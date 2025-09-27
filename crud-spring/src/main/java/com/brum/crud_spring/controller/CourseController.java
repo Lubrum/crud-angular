@@ -29,9 +29,9 @@ public class CourseController {
     @GetMapping
     public CousePageDTO list(
         @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-        @RequestParam(defaultValue = "10") @Positive @Max(10) int size
+        @RequestParam(defaultValue = "10") @Positive @Max(10) int pageSize
     ) {
-        return courseService.list(page, size);
+        return courseService.list(page, pageSize);
     }
 
     @GetMapping("/{id}")

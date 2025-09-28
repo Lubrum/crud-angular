@@ -1,7 +1,5 @@
 @use '@angular/material' as mat;
-
-@include mat.elevation-classes();
-@include mat.app-background();
+@include mat.core();
 
 // Definir paletas usando funções m2-*
 $primary-palette: mat.m2-define-palette(mat.$m2-deep-purple-palette);
@@ -16,9 +14,10 @@ $dark-theme: mat.m2-define-dark-theme((
 ));
 
 // Aplicar o tema globalmente
+@include mat.all-component-themes($dark-theme);
+
 html {
   color-scheme: dark;
-  @include mat.all-component-themes($dark-theme);
 }
 
 body {

@@ -1,12 +1,7 @@
-// Borda, sombra e cores do mat-card
 mat-card {
   max-width: 80%;
   margin: 2em auto;
   text-align: center;
-
-  // border-radius: 12px;
-  // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  // padding: 16px;
 }
 
 .column-flex {
@@ -16,8 +11,8 @@ mat-card {
 }
 
 .loading-spinner {
-  background-color: rgba(0,0,0,0.15);
   padding: 25px;
+  background: rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,18 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { Course } from '../../model/course';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SharedModule } from '../../../shared/shared.module';
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
-import { CommonModule } from '@angular/common';
+import { CategoryPipe } from '../../../shared/pipes/category.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
-  selector: 'app-courses-list',
-  standalone: true,
-  templateUrl: './courses-list.component.html',
-  styleUrl: './courses-list.component.scss',
-  imports: [CommonModule, AppMaterialModule, SharedModule],
+    selector: 'app-courses-list',
+    templateUrl: './courses-list.component.html',
+    styleUrls: ['./courses-list.component.scss'],
+    standalone: true,
+    imports: [MatTableModule, MatIconModule, MatButtonModule, CategoryPipe]
 })
 export class CoursesListComponent implements OnInit {
+
   @Input() courses: Course[] = [];
   @Output() add = new EventEmitter(false);
   @Output() edit = new EventEmitter(false);
@@ -20,11 +22,9 @@ export class CoursesListComponent implements OnInit {
 
   readonly displayedColumns = ['name', 'category', 'actions'];
 
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) {}
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void { }
 
   onAdd() {
     this.add.emit(true);
@@ -37,4 +37,5 @@ export class CoursesListComponent implements OnInit {
   onDelete(course: Course) {
     this.remove.emit(course);
   }
+
 }

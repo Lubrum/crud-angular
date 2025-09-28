@@ -1,16 +1,24 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
-import { routes } from './app/app.routes'; // ou inline
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
+
+import { AppComponent } from './app/app.component';
+import { APP_ROUTES } from './app/app.routes';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes),
-    provideClientHydration(),
-    provideAnimationsAsync(),
-    provideHttpClient(withInterceptorsFromDi())
-  ]
-}).catch(err => console.error(err));
+    providers: [
+        importProvidersFrom(BrowserModule, MatToolbarModule),
+        provideHttpClient(withInterceptorsFromDi()),
+        provideAnimations(),
+        provideRouter(APP_ROUTES, withPreloading(PreloadAllModules))
+    ]
+})
+  .catch(err => console.error(err));

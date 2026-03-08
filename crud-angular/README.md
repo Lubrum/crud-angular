@@ -1,6 +1,6 @@
 # CrudAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.
+This project uses version 20.x.x.
 
 ## Development server
 

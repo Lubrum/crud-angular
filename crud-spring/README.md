@@ -1,3 +1,8 @@
+![Java](https://img.shields.io/badge/Java-24-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-4-green)
+![Build](https://img.shields.io/badge/build-maven-blue)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
 # CRUD Spring Boot API
 
 API REST de exemplo para gerenciamento de **courses**, desenvolvida com **Spring Boot**, **Spring Data JPA** e **MySQL**.

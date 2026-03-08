@@ -1,9 +1,18 @@
-# CRUD Spring Boot
+# CRUD Spring Boot API
 
-Projeto de exemplo de uma API CRUD construída com **Spring Boot**.
-O objetivo deste repositório é demonstrar a criação de uma aplicação backend simples usando **Spring Boot, JPA e banco de dados relacional**.
+API REST de exemplo para gerenciamento de **courses**, desenvolvida com **Spring Boot**, **Spring Data JPA** e **MySQL**.
 
-## Tecnologias utilizadas
+O projeto demonstra a implementação de um CRUD completo com:
+
+* arquitetura em camadas
+* validação de dados
+* paginação
+* integração com banco relacional
+* execução via Docker
+
+---
+
+# Tecnologias
 
 * Java 24
 * Spring Boot 4
@@ -12,73 +21,220 @@ O objetivo deste repositório é demonstrar a criação de uma aplicação backe
 * Spring Validation
 * Maven
 * MySQL
-* H2 Database (para desenvolvimento/teste)
+* H2 Database
+* Docker
 
-## Dependências principais
+---
 
-* `spring-boot-starter-web` — criação de APIs REST
-* `spring-boot-starter-data-jpa` — acesso a banco de dados com JPA/Hibernate
-* `spring-boot-starter-validation` — validação de dados
-* `mysql-connector-j` — driver para MySQL
-* `h2` — banco em memória para testes
-* `spring-boot-devtools` — ferramentas de desenvolvimento
+# Arquitetura
 
-## Requisitos
+O projeto segue uma arquitetura em camadas:
 
-* Java 24 ou superior
-* Maven 3.9+
+```
+Controller → Service → Repository → Database
+```
 
-## Como executar o projeto
+Responsabilidades:
+
+* **Controller**: expõe endpoints REST
+* **Service**: regras de negócio
+* **Repository**: acesso ao banco de dados
+* **DTOs**: transporte de dados entre camadas
+
+---
+
+# Executando o banco de dados
+
+O projeto inclui configuração para iniciar um **MySQL container**.
+
+```yaml
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: example_password
+      MYSQL_DATABASE: courses
+      MYSQL_USER: example_user
+      MYSQL_PASSWORD: example_password
+    ports:
+      - "3306:3306"
+```
+
+Suba o banco com:
+
+```bash
+docker compose up -d
+```
+
+Database criado:
+
+```
+database: courses
+user: example_user
+password: example_password
+```
+
+---
+
+# Executando a aplicação
 
 Clone o repositório:
 
-```
+```bash
 git clone https://github.com/Lubrum/crud-spring.git
 cd crud-spring
 ```
 
 Execute com Maven:
 
-```
+```bash
 mvn spring-boot:run
 ```
 
-Ou compile e execute o jar:
+Ou compile e execute:
 
-```
+```bash
 mvn clean package
 java -jar target/crud-spring-0.0.1-SNAPSHOT.jar
 ```
 
-## Banco de dados
+---
 
-O projeto pode utilizar:
+# Configuração do banco
 
-* **H2 (em memória)** para desenvolvimento
-* **MySQL** para execução em ambiente real
-
-As configurações podem ser definidas no arquivo:
+Arquivo:
 
 ```
 src/main/resources/application.properties
 ```
 
-## Estrutura do projeto
+Exemplo de configuração:
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/courses
+spring.datasource.username=example_user
+spring.datasource.password=example_password
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+# API Endpoints
+
+Base URL
+
+```
+/api/courses
+```
+
+## Listar cursos
+
+```
+GET /api/courses
+```
+
+Parâmetros:
+
+| Param    | Descrição         | Default |
+| -------- | ----------------- | ------- |
+| page     | número da página  | 0       |
+| pageSize | tamanho da página | 10      |
+
+Exemplo:
+
+```
+GET /api/courses?page=0&pageSize=10
+```
+
+---
+
+## Buscar curso por ID
+
+```
+GET /api/courses/{id}
+```
+
+Exemplo:
+
+```
+GET /api/courses/1
+```
+
+---
+
+## Criar curso
+
+```
+POST /api/courses
+```
+
+Exemplo de request:
+
+```json
+{
+  "name": "Spring Boot",
+  "category": "Backend"
+}
+```
+
+Resposta:
+
+```
+201 Created
+```
+
+---
+
+## Atualizar curso
+
+```
+PUT /api/courses/{id}
+```
+
+Exemplo:
+
+```json
+{
+  "name": "Spring Boot Advanced",
+  "category": "Backend"
+}
+```
+
+---
+
+## Remover curso
+
+```
+DELETE /api/courses/{id}
+```
+
+Resposta:
+
+```
+204 No Content
+```
+
+---
+
+# Estrutura do projeto
 
 ```
 src
  ├── main
- │   ├── java
- │   │   └── com/brum
- │   │       ├── controller
- │   │       ├── service
- │   │       ├── repository
- │   │       └── model
+ │   ├── java/com/brum
+ │   │   ├── controller
+ │   │   ├── service
+ │   │   ├── repository
+ │   │   ├── dto
+ │   │   └── model
  │   └── resources
  │       └── application.properties
  └── test
 ```
 
-## Licença
+---
+
+# Licença
 
 Este projeto está licenciado sob a **MIT License**.
